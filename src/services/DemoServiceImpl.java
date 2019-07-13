@@ -1,5 +1,6 @@
 package services;
 
+import entity.Circle;
 import entity.Date;
 
 import java.time.format.DateTimeParseException;
@@ -7,6 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 public class DemoServiceImpl implements DemoService {
     private DateService dateService = new DateServiceImpl();
+    private CircleService circleService = new CircleServiceImpl();
 
     @Override
     public void run() {
@@ -14,6 +16,9 @@ public class DemoServiceImpl implements DemoService {
         showDifferenceInDays();
         showConvertedDates();
         showConvertedDateWithTimeZone();
+        showSquareCircle();
+        showMinAndMaxNumbers();
+        showSum();
     }
 
     private void showAge() {
@@ -41,8 +46,8 @@ public class DemoServiceImpl implements DemoService {
     }
 
     private void showConvertedDates() {
-        String date = "Friday, Aug 10, 2016 12:10:56 PM";
-        String oldPattern = "E, MMM dd, yyyy hh:mm:ss a";
+        String date = "Wednesday, Aug 11, 2016 12:10:56 PM";
+        String oldPattern = "EEE, MMM dd, yyyy hh:mm:ss a";
         String newPatter = "yyyy-MM-dd";
         try {
             String convertedDate = dateService.convertDate(date, oldPattern, newPatter);
@@ -65,6 +70,31 @@ public class DemoServiceImpl implements DemoService {
             e.printStackTrace();
             System.out.println("Date can't be parsed");
         }
+    }
+
+    private void showSquareCircle() {
+        Circle circle = new Circle(14.001203503506560);
+        double square = circleService.square(circle);
+        System.out.printf("Square of circle is %.50f%n", square);
+    }
+
+    private void showMinAndMaxNumbers() {
+        double num1 = 56;
+        double num2 = 146;
+        double num3 = -89;
+
+        NumberService numberService = new NumberServiceImpl();
+        double min = numberService.findMinNumber(num1, num2, num3);
+        double max = numberService.findMaxNumber(num1, num2, num3);
+
+        System.out.printf("Min is %.2f and max is %.2f among numbers: %.2f, %.2f, %.2f%n",
+                min, max, num1, num2, num3);
+    }
+
+    private void showSum() {
+        String numbers = "12.0, 6, 18";
+        NumberService numberService  = new NumberServiceImpl();
+        System.out.println(numberService.isThirdNumberSumOfFirstTwo(numbers));
     }
 
 }

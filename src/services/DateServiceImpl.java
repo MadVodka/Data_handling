@@ -36,7 +36,12 @@ public class DateServiceImpl implements DateService {
     public String convertDate(String date, String oldPattern, String newPattern) throws DateTimeParseException {
 //        SimpleDateFormat oldDateFormat = new SimpleDateFormat(oldPattern);
 //        SimpleDateFormat newDateFormat = new SimpleDateFormat(newPattern);
-//        java.util.Date date1 = oldDateFormat.parse(date);
+//        java.util.Date date1 = null;
+//        try {
+//            date1 = oldDateFormat.parse(date);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 //        return newDateFormat.format(date1);
 
         DateTimeFormatter oldDateTimeFormatter = DateTimeFormatter.ofPattern(oldPattern);
