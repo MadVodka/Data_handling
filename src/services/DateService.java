@@ -10,5 +10,7 @@ public interface DateService {
 
     long dayDifferenceBetweenDates(String date1, String date2, String dateTimePattern);
 
-    String convertDateWithPattern(String date, String oldPattern, String newPattern);
+    String convertDate(String date, String oldPattern, String newPattern);
+
+    String convertDateWithTimeZone(String date, String oldPattern, String newPattern, String timeZone);
 }

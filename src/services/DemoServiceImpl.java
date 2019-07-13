@@ -2,7 +2,6 @@ package services;
 
 import entity.Date;
 
-import java.text.ParseException;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
@@ -14,6 +13,7 @@ public class DemoServiceImpl implements DemoService {
         showAge();
         showDifferenceInDays();
         showConvertedDates();
+        showConvertedDateWithTimeZone();
     }
 
     private void showAge() {
@@ -45,11 +45,26 @@ public class DemoServiceImpl implements DemoService {
         String oldPattern = "E, MMM dd, yyyy hh:mm:ss a";
         String newPatter = "yyyy-MM-dd";
         try {
-            String convertedDate = dateService.convertDateWithPattern(date, oldPattern, newPatter);
+            String convertedDate = dateService.convertDate(date, oldPattern, newPatter);
             System.out.printf("Date %s was converted to %s%n", date, convertedDate);
         } catch (DateTimeParseException e) {
             e.printStackTrace();
             System.out.println("Date can't be parsed");
         }
     }
+
+    private void showConvertedDateWithTimeZone() {
+        String date = "2016-08-16T10:15:30+08:00";
+        String oldPattern = "yyyy-MM-dd'T'HH:mm:ssXXX";
+        String newPatter = "yyyy-MM-dd HH:mm:ss";
+        String timeZoneIzhevsk = "+04:00";
+        try {
+            String convertedDate = dateService.convertDateWithTimeZone(date, oldPattern, newPatter, timeZoneIzhevsk);
+            System.out.printf("Date %s was converted to %s at Izhevsk(" + timeZoneIzhevsk + ")%n", date, convertedDate);
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            System.out.println("Date can't be parsed");
+        }
+    }
+
 }

@@ -1,17 +1,19 @@
 package services;
 
+import com.sun.istack.internal.Nullable;
 import entity.Date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.Locale;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 
 public class DateServiceImpl implements DateService {
+
     @Override
     public long calculateAge(Date date, ChronoUnit chronoUnit) {
         LocalDateTime nowDateTime = LocalDateTime.now();
@@ -31,7 +33,7 @@ public class DateServiceImpl implements DateService {
     }
 
     @Override
-    public String convertDateWithPattern(String date, String oldPattern, String newPattern) throws DateTimeParseException {
+    public String convertDate(String date, String oldPattern, String newPattern) throws DateTimeParseException {
 //        SimpleDateFormat oldDateFormat = new SimpleDateFormat(oldPattern);
 //        SimpleDateFormat newDateFormat = new SimpleDateFormat(newPattern);
 //        java.util.Date date1 = oldDateFormat.parse(date);
@@ -42,5 +44,15 @@ public class DateServiceImpl implements DateService {
         LocalDateTime localDateTime = LocalDateTime.parse(date, oldDateTimeFormatter);
         return localDateTime.format(newDateTimeFormatter);
 
+    }
+
+    @Override
+    public String convertDateWithTimeZone(String date, @Nullable String oldPattern, String newPattern, String timeZone) {
+        DateTimeFormatter oldDateTimeFormatter = DateTimeFormatter.ofPattern(oldPattern);
+        DateTimeFormatter newDateTimeFormatter = DateTimeFormatter.ofPattern(newPattern);
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(date);
+        ZoneOffset zoneOffset = ZoneOffset.of(timeZone);
+        OffsetDateTime offsetDateTime = zonedDateTime.toOffsetDateTime().withOffsetSameInstant(zoneOffset);
+        return offsetDateTime.format(newDateTimeFormatter);
     }
 }
