@@ -46,8 +46,8 @@ public class DemoServiceImpl implements DemoService {
     }
 
     private void showConvertedDates() {
-        String date = "Wednesday, Aug 11, 2016 12:10:56 PM";
-        String oldPattern = "EEE, MMM dd, yyyy hh:mm:ss a";
+        String date = "Thu, Aug 11, 2016 12:10:56 PM";
+        String oldPattern = "E, MMM dd, yyyy hh:mm:ss a";
         String newPatter = "yyyy-MM-dd";
         try {
             String convertedDate = dateService.convertDate(date, oldPattern, newPatter);

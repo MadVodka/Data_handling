@@ -3,14 +3,11 @@ package services;
 import com.sun.istack.internal.Nullable;
 import entity.Date;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.SimpleTimeZone;
-import java.util.TimeZone;
+import java.util.Locale;
 
 public class DateServiceImpl implements DateService {
 
@@ -44,7 +41,7 @@ public class DateServiceImpl implements DateService {
 //        }
 //        return newDateFormat.format(date1);
 
-        DateTimeFormatter oldDateTimeFormatter = DateTimeFormatter.ofPattern(oldPattern);
+        DateTimeFormatter oldDateTimeFormatter = DateTimeFormatter.ofPattern(oldPattern).withLocale(Locale.US);
         DateTimeFormatter newDateTimeFormatter = DateTimeFormatter.ofPattern(newPattern);
         LocalDateTime localDateTime = LocalDateTime.parse(date, oldDateTimeFormatter);
         return localDateTime.format(newDateTimeFormatter);
@@ -53,7 +50,6 @@ public class DateServiceImpl implements DateService {
 
     @Override
     public String convertDateWithTimeZone(String date, @Nullable String oldPattern, String newPattern, String timeZone) {
-        DateTimeFormatter oldDateTimeFormatter = DateTimeFormatter.ofPattern(oldPattern);
         DateTimeFormatter newDateTimeFormatter = DateTimeFormatter.ofPattern(newPattern);
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(date);
         ZoneOffset zoneOffset = ZoneOffset.of(timeZone);
