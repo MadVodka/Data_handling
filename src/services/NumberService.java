@@ -5,5 +5,5 @@ public interface NumberService {
 
     double findMaxNumber(double number1, double number2, double number3);
 
-    boolean isThirdNumberSumOfFirstTwo(String numbers);
+    int isThirdNumberSumOfFirstTwo(String numbers);
 }

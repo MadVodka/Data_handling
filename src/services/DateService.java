@@ -2,7 +2,6 @@ package services;
 
 import entity.Date;
 
-import java.text.ParseException;
 import java.time.temporal.ChronoUnit;
 
 public interface DateService {
@@ -12,5 +11,5 @@ public interface DateService {
 
     String convertDate(String date, String oldPattern, String newPattern);
 
-    String convertDateWithTimeZone(String date, String oldPattern, String newPattern, String timeZone);
+    String convertDateWithTimeZone(String date, String newPattern, String timeZone);
 }
