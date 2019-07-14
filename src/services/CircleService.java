@@ -2,6 +2,8 @@ package services;
 
 import entity.Circle;
 
+import java.math.BigDecimal;
+
 public interface CircleService {
-    double square(Circle circle);
+    BigDecimal square(Circle circle);
 }

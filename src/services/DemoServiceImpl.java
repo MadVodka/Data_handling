@@ -61,11 +61,11 @@ public class DemoServiceImpl implements DemoService {
     private void showConvertedDateWithTimeZone() {
         String date = "2016-08-16T10:15:30+08:00";
         String oldPattern = "yyyy-MM-dd'T'HH:mm:ssXXX";
-        String newPatter = "yyyy-MM-dd HH:mm:ss";
+        String newPatter = "yyyy-MM-dd HH:mm:ss XXX";
         String timeZoneIzhevsk = "+04:00";
         try {
             String convertedDate = dateService.convertDateWithTimeZone(date, oldPattern, newPatter, timeZoneIzhevsk);
-            System.out.printf("Date %s was converted to %s at Izhevsk(" + timeZoneIzhevsk + ")%n", date, convertedDate);
+            System.out.printf("Date %s was converted to %s at Izhevsk%n", date, convertedDate);
         } catch (DateTimeParseException e) {
             e.printStackTrace();
             System.out.println("Date can't be parsed");
@@ -73,9 +73,9 @@ public class DemoServiceImpl implements DemoService {
     }
 
     private void showSquareCircle() {
-        Circle circle = new Circle(14.001203503506560);
-        double square = circleService.square(circle);
-        System.out.printf("Square of circle is %.50f%n", square);
+        Circle circle = new Circle(104.54674);
+        String square = circleService.square(circle).toPlainString();
+        System.out.println("Square of circle is " + square);
     }
 
     private void showMinAndMaxNumbers() {
@@ -92,9 +92,11 @@ public class DemoServiceImpl implements DemoService {
     }
 
     private void showSum() {
-        String numbers = "12.0, 6, 18";
-        NumberService numberService  = new NumberServiceImpl();
-        System.out.println(numberService.isThirdNumberSumOfFirstTwo(numbers));
+        String numbers = "0.23, 1, 1.23";
+        NumberService numberService = new NumberServiceImpl();
+        boolean result = numberService.isThirdNumberSumOfFirstTwo(numbers);
+        System.out.printf("Is third number a sum of first two numbers in a string of %s: %s%n",
+                numbers, result ? "yes" : "no");
     }
 
 }
