@@ -14,7 +14,8 @@ public class TextDemoService implements DemoService {
     public void run() {
         System.out.println("------ Start of text demo (task 4) -----");
         showWordsFromText();
-        showWords();
+        showWordsByLength();
+        showPhoneNumbers();
     }
 
     private void showWordsFromText() {
@@ -24,7 +25,7 @@ public class TextDemoService implements DemoService {
         System.out.println();
     }
 
-    private void showWords() {
+    private void showWordsByLength() {
         System.out.println("------ Shortest and longest words (task 4.2) ------");
         Comparator<String> shortestStringComparator = new ShortestStringComparator();
         String shortestWord = textService.findWord(text, shortestStringComparator);
@@ -33,5 +34,12 @@ public class TextDemoService implements DemoService {
         String longestWord = textService.findWord(text, longestStringComparator);
         System.out.printf("Longest word is %s%n",longestWord);
         System.out.println();
+    }
+
+    private void showPhoneNumbers() {
+        String text= "Дана строка, содержащая в себе, помимо прочего, номера телефонов. Необходимо удалить из этой строки префиксы локальных\n" +
+                "номеров, соответствующих Ижевску. Например, из &quot;+7 (3412) 517-647&quot; получить &quot;517-647&quot;; &quot;8 (3412) 4997-12&quot; &gt; &quot;4997-12&quot;; &quot;+7 3412 " +
+                "90-41-90; &gt; &quot;90-41-90";
+        textService.findPhoneNumbers(text);
     }
 }
