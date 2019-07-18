@@ -1,9 +1,9 @@
 package services;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,21 +32,21 @@ public class TextServiceImpl implements TextService {
     }
 
     @Override
-    public String[] findPhoneNumbers(String text) {
-        String wholePhoneNumberPattern = "((([+]7)|[7]|[8])?)[ ]?[(]?3412[)]?[ ]" +
-                "([2-9](-| )?\\d(-| )?\\d(-| )?\\d(-| )?\\d(-| )?\\d)";
+    public List<String> findPhoneNumbers(String text) {
+        String wholePhoneNumberPattern = "((([+]7)|[7]|[8])?)[ ]?[(]?3412[)]?( |\\n)" +
+                "([2-9](-| |\\n)?\\d(-| |\\n)?\\d(-| |\\n)?\\d(-| |\\n)?\\d(-| |\\n)?\\d)";
         Pattern wholePhoneNumber = Pattern.compile(wholePhoneNumberPattern);
         Pattern cityPhonePattern = Pattern.compile("([2-9](-| )?\\d(-| )?\\d(-| )?\\d(-| )?\\d(-| )?\\d)$");
         Matcher matcher = wholePhoneNumber.matcher(text);
+        List<String> phoneNumbers = new ArrayList<>();
         while (matcher.find()) {
             String phone = text.substring(matcher.start(), matcher.end());
-            System.out.println(phone);
             Matcher matcher1 = cityPhonePattern.matcher(phone);
             while (matcher1.find()) {
                 String city = phone.substring(matcher1.start());
-                System.out.println(city);
+                phoneNumbers.add(city);
             }
         }
-        return null;
+        return phoneNumbers;
     }
 }
