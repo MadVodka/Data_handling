@@ -17,6 +17,7 @@ public class TextDemoService implements DemoService {
         showWordsFromText();
         showWordsByLength();
         showPhoneNumbers();
+        showChangedTemplate();
     }
 
     private void showWordsFromText() {
@@ -46,5 +47,27 @@ public class TextDemoService implements DemoService {
         List<String> phoneNumbers = textService.findPhoneNumbers(text);
         System.out.println("Phone numbers: " + phoneNumbers);
         System.out.println();
+    }
+
+    private void showChangedTemplate() {
+        String templateMail = "Уважаемый, $userName, извещаем вас о том, что на вашем счете " +
+                "$accountNumber скопилась сумма, превышающая стоимость $monthCount месяцев пользования " +
+                "нашими услугами. Деньги продолжают поступать. Вероятно, вы неправильно настроили " +
+                "автоплатеж. С уважением, $employeeName, $employeePost.";
+
+        String userName = "$userName Vatokat2000";
+        String accountNumber = "$accountNumber 44352/8734";
+        String monthCount = "$monthCount 6";
+        String employeeName = "$employeeName Сергиенко Николай";
+        String employeePost = "$employeePost Старший менеджер по взаимодействию с клиентами";
+
+
+        String filledTemplate = textService.changePlaceHolders(templateMail, userName, accountNumber,
+                monthCount, employeeName, employeePost);
+        System.out.println("------ Fill in template (task 4.4) ------");
+        System.out.println("Template:");
+        System.out.println(templateMail+"\n");
+        System.out.println("Filled template:");
+        System.out.println(filledTemplate+"\n");
     }
 }

@@ -25,7 +25,7 @@ public class TextServiceImpl implements TextService {
         Pattern pattern = Pattern.compile("[^а-яА-яa-zA-Z]+");
         String[] words = pattern.split(text);
         Arrays.sort(words, comparator);
-        if (words.length>0) {
+        if (words.length > 0) {
             return words[0];
         }
         return null;
@@ -48,5 +48,24 @@ public class TextServiceImpl implements TextService {
             }
         }
         return phoneNumbers;
+    }
+
+    @Override
+    public String changePlaceHolders(String text, String... templateValues) {
+        Pattern pattern = Pattern.compile("\\$[a-zA-Zа-яА-Я0-9]+");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            String template = text.substring(matcher.start(), matcher.end());
+            for (String templateValue : templateValues) {
+                if (templateValue.startsWith(template)) {
+                    text = text.replaceFirst(pattern.toString(),
+                            templateValue.substring(templateValue.indexOf(" ") + 1));
+                    matcher = pattern.matcher(text);
+                    break;
+                }
+            }
+
+        }
+        return text;
     }
 }

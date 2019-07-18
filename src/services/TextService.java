@@ -9,4 +9,6 @@ public interface TextService {
     String findWord(String text, Comparator<String> comparator);
 
     List<String> findPhoneNumbers(String text);
+
+    String changePlaceHolders(String text, String... templateValues);
 }
